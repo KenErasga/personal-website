@@ -1,19 +1,20 @@
+import type { AppProps } from 'next/app'
 import Layout from '../components/layouts/main'
 import Fonts from '../components/fonts'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'motion/react'
 import Chakra from '../components/chakra'
 
 if (typeof window !== 'undefined') {
   window.history.scrollRestoration = 'manual'
 }
 
-function Website({ Component, pageProps, router }) {
+function Website({ Component, pageProps, router }: AppProps) {
   return (
-    <Chakra cookies={pageProps.cookies}>
+    <Chakra>
       <Fonts />
       <Layout router={router}>
         <AnimatePresence
-          exitBeforeEnter
+          mode="wait"
           initial={true}
           onExitComplete={() => {
             if (typeof window !== 'undefined') {
