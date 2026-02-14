@@ -46,14 +46,14 @@ const scrollTo = (id: string) => {
 
 const HomeSection = () => {
   return (
-    <Box id="home" as="section" position="relative" scrollMarginTop="80px">
+    <Box id="home" as="section" position="relative" scrollMarginTop="200px">
       <Head>
         <title>Kenneth Erasga - Software Engineer</title>
         <meta
           name="description"
           content="Kenneth Erasga - Full-Stack Software Engineer based in Manchester, UK"
         />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </Head>
 
       <Box pt={6}>
