@@ -44,7 +44,7 @@ const ContactCard = ({ href, icon: Icon, label, badge, target }: {
 
 const ContactsSection = () => {
   return (
-    <Box id="contacts" as="section">
+    <Box id="contacts" as="section" scrollMarginTop="80px">
       <Box pt={6}>
         <Heading as="h2" fontSize="3xl" mb={4}>
           Contact

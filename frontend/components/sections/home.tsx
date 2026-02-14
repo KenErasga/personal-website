@@ -46,7 +46,7 @@ const scrollTo = (id: string) => {
 
 const HomeSection = () => {
   return (
-    <Box id="home" as="section" position="relative">
+    <Box id="home" as="section" position="relative" scrollMarginTop="80px">
       <Head>
         <title>Kenneth Erasga - Software Engineer</title>
         <meta

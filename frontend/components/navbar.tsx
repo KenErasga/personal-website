@@ -109,7 +109,7 @@ const Navbar = ({ path, ...props }: NavbarProps) => {
             display={{ base: 'none', md: 'flex' }}
             width={{ base: 'full', md: 'auto' }}
             alignItems="center"
-            spacing={4}
+            gap={4}
             mr={2}
           >
             <LinkItem href="#experience" sectionId="experience">
