@@ -1,5 +1,5 @@
 import Logo from './logo'
-import NextLink from 'next/link'
+import { useContext, useCallback } from 'react'
 import {
   Container,
   Box,
@@ -14,19 +14,20 @@ import { useTheme } from 'next-themes'
 import { useMounted } from '../lib/use-mounted'
 import { FaBars } from 'react-icons/fa'
 import ThemeToggleButton from './theme-toggle-button'
+import { ActiveSectionContext } from '../lib/active-section-context'
 
 // Chakra v3 Menu compound component types are incompatible with React 19
 const NavMenu: Record<string, React.FC<any>> = Menu as any
 
 interface LinkItemProps {
   href: string
-  path: string
-  target?: string
+  sectionId: string
   children: React.ReactNode
 }
 
-const LinkItem = ({ href, path, target, children, ...props }: LinkItemProps) => {
-  const active = path === href
+const LinkItem = ({ href, sectionId, children, ...props }: LinkItemProps) => {
+  const activeSection = useContext(ActiveSectionContext)
+  const active = activeSection === sectionId
   const { resolvedTheme } = useTheme()
   const mounted = useMounted()
 
@@ -34,18 +35,24 @@ const LinkItem = ({ href, path, target, children, ...props }: LinkItemProps) => 
     ? 'whiteAlpha.900'
     : 'gray.800'
 
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    const el = document.getElementById(sectionId)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [sectionId])
+
   return (
     <Link
-      asChild
+      href={href}
+      onClick={handleClick}
       p={2}
       bg={active ? 'grassTeal' : undefined}
       color={active ? '#202023' : inactiveColor}
-      target={target}
       {...props}
     >
-      <NextLink href={href} scroll={false}>
-        {children}
-      </NextLink>
+      {children}
     </Link>
   )
 }
@@ -62,6 +69,13 @@ const Navbar = ({ path, ...props }: NavbarProps) => {
   const navBg = mounted && resolvedTheme === 'dark'
     ? '#20202380'
     : '#ffffff40'
+
+  const scrollTo = useCallback((id: string) => {
+    const el = document.getElementById(id)
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [])
 
   return (
     <Box
@@ -87,20 +101,24 @@ const Navbar = ({ path, ...props }: NavbarProps) => {
           </Heading>
         </Flex>
 
-        <Stack
-          direction={{ base: 'column', md: 'row' }}
-          display={{ base: 'none', md: 'flex' }}
-          width={{ base: 'full', md: 'auto' }}
-          alignItems="center"
-          flexGrow={1}
-          mt={{ base: 4, md: 0 }}
-        >
-          <LinkItem href="/contacts" path={path}>
-            Contacts
-          </LinkItem>
-        </Stack>
+        <Box flex={1} />
 
-        <Box flex={1} textAlign="right">
+        <Flex align="center">
+          <Stack
+            direction={{ base: 'column', md: 'row' }}
+            display={{ base: 'none', md: 'flex' }}
+            width={{ base: 'full', md: 'auto' }}
+            alignItems="center"
+            spacing={4}
+            mr={2}
+          >
+            <LinkItem href="#experience" sectionId="experience">
+              Experience
+            </LinkItem>
+            <LinkItem href="#contacts" sectionId="contacts">
+              Contact
+            </LinkItem>
+          </Stack>
           <ThemeToggleButton />
           <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
             <NavMenu.Root>
@@ -115,16 +133,19 @@ const Navbar = ({ path, ...props }: NavbarProps) => {
                 <FaBars />
               </NavMenu.Trigger>
               <NavMenu.Content>
-                <NavMenu.Item value="about" asChild>
-                  <NextLink href="/">About</NextLink>
+                <NavMenu.Item value="about" onClick={() => scrollTo('home')}>
+                  About
                 </NavMenu.Item>
-                <NavMenu.Item value="contacts" asChild>
-                  <NextLink href="/contacts">Contacts</NextLink>
+                <NavMenu.Item value="experience" onClick={() => scrollTo('experience')}>
+                  Experience
+                </NavMenu.Item>
+                <NavMenu.Item value="contacts" onClick={() => scrollTo('contacts')}>
+                  Contact
                 </NavMenu.Item>
               </NavMenu.Content>
             </NavMenu.Root>
           </Box>
-        </Box>
+        </Flex>
       </Container>
     </Box>
   )

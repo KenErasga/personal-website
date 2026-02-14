@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import type { NextRouter } from 'next/router'
 import NavBar from '../navbar'
+import Footer from '../footer'
 import { Box, Container } from '@chakra-ui/react'
 
 interface MainProps {
@@ -22,6 +23,7 @@ const Main = ({ children, router }: MainProps) => {
       <Container maxW="container.md" pt={14}>
         {children}
       </Container>
+      <Footer />
     </Box>
   )
 }

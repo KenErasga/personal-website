@@ -1,30 +1,21 @@
 import type { AppProps } from 'next/app'
 import Layout from '../components/layouts/main'
 import Fonts from '../components/fonts'
-import { AnimatePresence } from 'motion/react'
 import Chakra from '../components/chakra'
-
-if (typeof window !== 'undefined') {
-  window.history.scrollRestoration = 'manual'
-}
+import { useActiveSection } from '../lib/use-active-section'
+import { ActiveSectionContext } from '../lib/active-section-context'
 
 function Website({ Component, pageProps, router }: AppProps) {
+  const activeSection = useActiveSection()
+
   return (
     <Chakra>
       <Fonts />
-      <Layout router={router}>
-        <AnimatePresence
-          mode="wait"
-          initial={true}
-          onExitComplete={() => {
-            if (typeof window !== 'undefined') {
-              window.scrollTo({ top: 0 })
-            }
-          }}
-        >
-          <Component {...pageProps} key={router.route} />
-        </AnimatePresence>
-      </Layout>
+      <ActiveSectionContext.Provider value={activeSection}>
+        <Layout router={router}>
+          <Component {...pageProps} />
+        </Layout>
+      </ActiveSectionContext.Provider>
     </Chakra>
   )
 }

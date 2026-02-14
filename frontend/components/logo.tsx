@@ -31,17 +31,24 @@ const Logo = () => {
     ? 'whiteAlpha.900'
     : 'gray.800'
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    const el = document.getElementById('home')
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
   return (
-    <Link href="/" scroll={false}>
+    <Link href="/" scroll={false} onClick={handleClick}>
       <LogoBox>
-        <Image src="/Me2.jpg" width={30} height={30} alt="logo" style={{ borderRadius: '50%' }} />
         <Text
           color={textColor}
           fontFamily='"M PLUS Rounded 1c", sans-serif'
           fontWeight="bold"
           ml={3}
         >
-          Ken Erasga
+          Kenneth Erasga
         </Text>
       </LogoBox>
     </Link>
