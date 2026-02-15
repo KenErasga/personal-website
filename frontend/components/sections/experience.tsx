@@ -184,7 +184,7 @@ const ExperienceSection = () => {
             role="Senior Software Engineer"
             period="November 2023 - Present"
             duration="2 yrs 3 mo"
-            tech={['NestJS', 'MongoDB', 'AWS', 'Next.js', 'Cypress', 'Jest', 'Python']}
+            tech={['NestJS', 'MongoDB', 'AWS', 'Next.js', 'Playwright', 'Jest', 'Python']}
           >
             <List.Item>
               Built and maintained a suite of Node.js microservices on AWS ECS and Lambda
@@ -196,12 +196,13 @@ const ExperienceSection = () => {
               settlement batches by ~40% through query optimisation and parallelisation.
             </List.Item>
             <List.Item>
-              Designed and implemented event-driven workflows to process millions of
-              half-hourly energy readings per month reliably and idempotently.
-            </List.Item>
-            <List.Item>
               Led the design and rollout of a new matching feature end-to-end,
               from data modelling through API design to deployment and monitoring.
+            </List.Item>
+            <List.Item>
+              Built and maintained end-to-end test coverage using Playwright, validating critical
+              user journeys across Next.js apps and backend services; integrated tests into CI to
+              prevent regressions.
             </List.Item>
             <List.Item>
               Support frontend teams with Next.js applications and maintain a
@@ -260,27 +261,27 @@ const ExperienceSection = () => {
             duration="3 yrs"
             tech={['React', 'Material-UI', 'Gatsby', 'Node.js', 'AWS', 'Terraform', 'Cypress', 'Jest', 'Docker', 'Python']}
           >
-<List.Item>
-  Developed secure frontend applications using React, Material-UI, and Gatsby,
-  implementing BDD practices with Cucumber and Cypress to ensure predictable,
-  testable behaviour.
-</List.Item>
+            <List.Item>
+              Developed secure frontend applications using React, Material-UI, and Gatsby,
+              implementing BDD practices with Cucumber and Cypress to ensure predictable,
+              testable behaviour.
+            </List.Item>
 
-<List.Item>
-  Designed and maintained Node.js services with Express, applying unit and
-  integration testing using Jest to support reliable, production-grade systems.
-</List.Item>
+            <List.Item>
+              Designed and maintained Node.js services with Express, applying unit and
+              integration testing using Jest to support reliable, production-grade systems.
+            </List.Item>
 
-<List.Item>
-  Engineered cloud-native solutions across AWS (ECS Fargate, ECR, Cognito,
-  Lambda, DocumentDB, DynamoDB, EKS) using Terraform for infrastructure as code,
-  and automated deployments via Concourse and GitLab CI/CD pipelines.
-</List.Item>
+            <List.Item>
+              Engineered cloud-native solutions across AWS (ECS Fargate, ECR, Cognito,
+              Lambda, DocumentDB, DynamoDB, EKS) using Terraform for infrastructure as code,
+              and automated deployments via Concourse and GitLab CI/CD pipelines.
+            </List.Item>
 
-<List.Item>
-  Mentored junior engineers and promoted knowledge sharing through regular
-  pair programming and collaborative code reviews.
-</List.Item>
+            <List.Item>
+              Mentored junior engineers and promoted knowledge sharing through regular
+              pair programming and collaborative code reviews.
+            </List.Item>
           </ExperienceEntry>
         </motion.div>
 
