@@ -97,6 +97,63 @@ const ExperienceEntry = ({ company, location, role, period, duration, tech, chil
   )
 }
 
+interface EducationEntryProps {
+  degree: string
+  institution: string
+  period: string
+  children?: React.ReactNode
+}
+
+const EducationEntry = ({ degree, institution, period, children }: EducationEntryProps) => {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <Flex
+      align="flex-start"
+      gap={3}
+      p={4}
+      borderWidth="1px"
+      borderRadius="lg"
+      transition="all 0.2s"
+      cursor={children ? 'pointer' : 'default'}
+      role={children ? 'button' : undefined}
+      tabIndex={children ? 0 : undefined}
+      aria-expanded={children ? expanded : undefined}
+      onClick={children ? () => setExpanded(!expanded) : undefined}
+      onKeyDown={children ? (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          setExpanded(!expanded)
+        }
+      } : undefined}
+      _hover={{ borderColor: 'grassTeal' }}
+    >
+      <Box fontSize="24px" color="grassTeal" mt={0.5}>
+        <FaGraduationCap />
+      </Box>
+      <Box flex={1}>
+        <Text fontSize="sm" fontWeight="semibold">
+          {degree}
+        </Text>
+        <Text fontSize="xs" color="gray.500">
+          {institution} &middot; {period}
+        </Text>
+        {children && expanded && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            transition={{ duration: 0.3 }}
+          >
+            <Box mt={3}>
+              {children}
+            </Box>
+          </motion.div>
+        )}
+      </Box>
+    </Flex>
+  )
+}
+
 const scrollTo = (id: string) => {
   const el = document.getElementById(id)
   if (el) el.scrollIntoView({ behavior: 'smooth' })
@@ -127,13 +184,24 @@ const ExperienceSection = () => {
             role="Senior Software Engineer"
             period="November 2023 - Present"
             duration="2 yrs 3 mo"
-            tech={['NestJS', 'MongoDB', 'AWS Fargate', 'Lambda', 'Next.js', 'Cypress', 'Jest']}
+            tech={['NestJS', 'MongoDB', 'AWS', 'Next.js', 'Cypress', 'Jest', 'Python']}
           >
             <List.Item>
-              Work across a suite of Node.js microservices running on AWS Fargate
-              and Lambda, using NestJS and MongoDB to handle energy data like
-              half-hourly consumption, line loss factors, and matching between
-              generators and consumers.
+              Built and maintained a suite of Node.js microservices on AWS ECS and Lambda
+              using NestJS and MongoDB to process half-hourly energy data, line loss factors,
+              and generator–consumer matching.
+            </List.Item>
+            <List.Item>
+              Improved matching engine performance, reducing processing time for large
+              settlement batches by ~40% through query optimisation and parallelisation.
+            </List.Item>
+            <List.Item>
+              Designed and implemented event-driven workflows to process millions of
+              half-hourly energy readings per month reliably and idempotently.
+            </List.Item>
+            <List.Item>
+              Led the design and rollout of a new matching feature end-to-end,
+              from data modelling through API design to deployment and monitoring.
             </List.Item>
             <List.Item>
               Support frontend teams with Next.js applications and maintain a
@@ -142,8 +210,8 @@ const ExperienceSection = () => {
               Next.js stack.
             </List.Item>
             <List.Item>
-              Heavily involved in testing (Cypress for BDD and Jest for TDD) and
-              contribute to architectural decisions across the platform.
+              Worked closely with product and commercial teams to translate complex
+              regulatory and energy market requirements into robust system behaviour.
             </List.Item>
           </ExperienceEntry>
         </motion.div>
@@ -160,7 +228,7 @@ const ExperienceSection = () => {
             role="Senior Software Engineer"
             period="April 2023 - November 2023"
             duration="8 mo"
-            tech={['Node.js', 'AWS EKS', 'DynamoDB', 'DocumentDB', 'S3', 'OpenSearch', 'Cypress']}
+            tech={['Node.js', 'React', 'AWS EKS', 'DynamoDB', 'DocumentDB', 'AWS S3', 'OpenSearch', 'Cypress']}
           >
             <List.Item>
               Built Node.js microservices deployed in AWS EKS and integrated with
@@ -171,8 +239,9 @@ const ExperienceSection = () => {
               engineers, conducted code reviews, and demoed new features.
             </List.Item>
             <List.Item>
-              Helped shape the automation testing strategy using Cypress and GitLab
-              pipelines, and used Jest and CucumberJS for testing.
+              Helped define and implement the automated testing strategy using Cypress
+              and GitLab CI pipelines, with Jest and CucumberJS for unit and integration
+              testing.
             </List.Item>
           </ExperienceEntry>
         </motion.div>
@@ -189,24 +258,29 @@ const ExperienceSection = () => {
             role="Software Engineer"
             period="April 2020 - April 2023"
             duration="3 yrs"
-            tech={['React', 'Node.js', 'AWS', 'Terraform', 'Cypress', 'Jest', 'Docker']}
+            tech={['React', 'Material-UI', 'Gatsby', 'Node.js', 'AWS', 'Terraform', 'Cypress', 'Jest', 'Docker', 'Python']}
           >
-            <List.Item>
-              Built frontend apps with React, Material-UI, and Gatsby, and set up
-              BDD testing with Cucumber and Cypress.
-            </List.Item>
-            <List.Item>
-              Developed Node.js services with Express and Jest for unit testing.
-            </List.Item>
-            <List.Item>
-              Worked extensively with AWS (ECS Fargate, ECR, Cognito, Lambda,
-              DocumentDB, DynamoDB, EKS) and Terraform for provisioning. Automated
-              deployments through Concourse CI and GitLab CI/CD.
-            </List.Item>
-            <List.Item>
-              Mentored junior developers and regularly pair-programmed across the
-              team.
-            </List.Item>
+<List.Item>
+  Developed secure frontend applications using React, Material-UI, and Gatsby,
+  implementing BDD practices with Cucumber and Cypress to ensure predictable,
+  testable behaviour.
+</List.Item>
+
+<List.Item>
+  Designed and maintained Node.js services with Express, applying unit and
+  integration testing using Jest to support reliable, production-grade systems.
+</List.Item>
+
+<List.Item>
+  Engineered cloud-native solutions across AWS (ECS Fargate, ECR, Cognito,
+  Lambda, DocumentDB, DynamoDB, EKS) using Terraform for infrastructure as code,
+  and automated deployments via Concourse and GitLab CI/CD pipelines.
+</List.Item>
+
+<List.Item>
+  Mentored junior engineers and promoted knowledge sharing through regular
+  pair programming and collaborative code reviews.
+</List.Item>
           </ExperienceEntry>
         </motion.div>
 
@@ -282,48 +356,50 @@ const ExperienceSection = () => {
         <Box>
           <SectionTitle>Education</SectionTitle>
           <Flex direction="column" gap={3}>
-            <Flex
-              align="flex-start"
-              gap={3}
-              p={4}
-              borderWidth="1px"
-              borderRadius="lg"
-              transition="all 0.2s"
-              _hover={{ borderColor: 'grassTeal' }}
+            <EducationEntry
+              degree="MSc Mathematics and Computer Science"
+              institution="University of Leeds"
+              period="2016 - 2017"
             >
-              <Box fontSize="24px" color="grassTeal" mt={0.5}>
-                <FaGraduationCap />
-              </Box>
-              <Box>
-                <Text fontSize="sm" fontWeight="semibold">
-                  MSc Mathematics and Computer Science
-                </Text>
-                <Text fontSize="xs" color="gray.500">
-                  University of Leeds &middot; 2016 - 2017
-                </Text>
-              </Box>
-            </Flex>
-            <Flex
-              align="flex-start"
-              gap={3}
-              p={4}
-              borderWidth="1px"
-              borderRadius="lg"
-              transition="all 0.2s"
-              _hover={{ borderColor: 'grassTeal' }}
+              <Text fontSize="xs" fontWeight="medium" mb={1}>Dissertation</Text>
+              <Text fontSize="xs" color="gray.500" mb={2}>
+                Synchronisation of Two (or more) Chaotic Oscillators
+              </Text>
+              <Text fontSize="xs" fontWeight="medium" mb={1}>Modules</Text>
+              <Text fontSize="xs" color="gray.500" mb={2}>
+                Advanced Dynamical Systems, Advanced Mathematical Biology, Scientific Computation, Algorithms, Fluid Dynamics, Advanced Linear and Non-Linear Waves
+              </Text>
+              <Text fontSize="xs" fontWeight="medium" mb={1}>Activities</Text>
+              <Text fontSize="xs" color="gray.500">
+                Kickboxing and Krav Maga Society
+              </Text>
+            </EducationEntry>
+            <EducationEntry
+              degree="BSc (Hons) Mathematics"
+              institution="Manchester Metropolitan University"
+              period="2012 - 2015"
             >
-              <Box fontSize="24px" color="grassTeal" mt={0.5}>
-                <FaGraduationCap />
-              </Box>
-              <Box>
-                <Text fontSize="sm" fontWeight="semibold">
-                  BSc (Hons) Mathematics
-                </Text>
-                <Text fontSize="xs" color="gray.500">
-                  Manchester Metropolitan University &middot; 2012 - 2015
-                </Text>
-              </Box>
-            </Flex>
+              <Text fontSize="xs" fontWeight="medium" mb={1}>Dissertation</Text>
+              <Text fontSize="xs" color="gray.500" mb={2}>
+                Mathematics in Forensic Science
+              </Text>
+              <Text fontSize="xs" fontWeight="medium" mb={1}>Year 1 Modules</Text>
+              <Text fontSize="xs" color="gray.500" mb={2}>
+                Decision Mathematics, Linear Algebra and Programming Skills, Probability Theory and Statistics, Mathematics Fundamentals
+              </Text>
+              <Text fontSize="xs" fontWeight="medium" mb={1}>Year 2 Modules</Text>
+              <Text fontSize="xs" color="gray.500" mb={2}>
+                Mathematical Methods, Numerical Methods and Modelling, Statistics and Financial Mathematics, Mathematics of Computer Graphics and Virtual Environment
+              </Text>
+              <Text fontSize="xs" fontWeight="medium" mb={1}>Year 3 Modules</Text>
+              <Text fontSize="xs" color="gray.500" mb={2}>
+                Computational Methods in Ordinary Differential Equations, Dynamical Systems and Chaos Theory, Numerical Methods for Partial Differential Equations
+              </Text>
+              <Text fontSize="xs" fontWeight="medium" mb={1}>Activities</Text>
+              <Text fontSize="xs" color="gray.500">
+                Basketball
+              </Text>
+            </EducationEntry>
           </Flex>
         </Box>
       </SimpleGrid>
