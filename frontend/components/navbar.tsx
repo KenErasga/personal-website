@@ -7,8 +7,7 @@ import {
   Stack,
   Heading,
   Flex,
-  Menu,
-  IconButton
+  Menu
 } from '@chakra-ui/react'
 import { useTheme } from 'next-themes'
 import { useMounted } from '../lib/use-mounted'
@@ -16,8 +15,9 @@ import { FaBars } from 'react-icons/fa'
 import ThemeToggleButton from './theme-toggle-button'
 import { ActiveSectionContext } from '../lib/active-section-context'
 
-// Chakra v3 Menu compound component types are incompatible with React 19
-const NavMenu: Record<string, React.FC<any>> = Menu as any
+// Chakra v3 Menu compound component types are incompatible with React 19.
+// TODO: Remove this assertion when @chakra-ui/react ships React 19 compatible types.
+const NavMenu = Menu as unknown as Record<string, React.FC<Record<string, unknown>>>
 
 interface LinkItemProps {
   href: string
@@ -58,11 +58,10 @@ const LinkItem = ({ href, sectionId, children, ...props }: LinkItemProps) => {
 }
 
 interface NavbarProps {
-  path: string
   [key: string]: unknown
 }
 
-const Navbar = ({ path, ...props }: NavbarProps) => {
+const Navbar = (props: NavbarProps) => {
   const { resolvedTheme } = useTheme()
   const mounted = useMounted()
 
@@ -123,7 +122,7 @@ const Navbar = ({ path, ...props }: NavbarProps) => {
           <Box ml={2} display={{ base: 'inline-block', md: 'none' }}>
             <NavMenu.Root>
               <NavMenu.Trigger
-                aria-label="Options"
+                aria-label="Open navigation menu"
                 p={1}
                 borderWidth="1px"
                 borderRadius="md"

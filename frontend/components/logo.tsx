@@ -1,27 +1,7 @@
 import Link from 'next/link'
-import Image from 'next/image'
-import { Text } from '@chakra-ui/react'
+import { Text, Box } from '@chakra-ui/react'
 import { useTheme } from 'next-themes'
 import { useMounted } from '../lib/use-mounted'
-import styled from '@emotion/styled'
-
-const LogoBox = styled.span`
-  font-weight: bold;
-  font-size: 18px;
-  display: inline-flex;
-  align-items: center;
-  height: 30px;
-  line-height: 20px;
-  padding: 10px;
-
-  img {
-    transition: 200ms ease;
-  }
-
-  &:hover img {
-    transform: rotate(20deg);
-  }
-`
 
 const Logo = () => {
   const { resolvedTheme } = useTheme()
@@ -41,7 +21,20 @@ const Logo = () => {
 
   return (
     <Link href="/" scroll={false} onClick={handleClick}>
-      <LogoBox>
+      <Box
+        as="span"
+        fontWeight="bold"
+        fontSize="18px"
+        display="inline-flex"
+        alignItems="center"
+        h="30px"
+        lineHeight="20px"
+        p="10px"
+        css={{
+          '& img': { transition: '200ms ease' },
+          '&:hover img': { transform: 'rotate(20deg)' },
+        }}
+      >
         <Text
           color={textColor}
           fontFamily='"M PLUS Rounded 1c", sans-serif'
@@ -50,7 +43,7 @@ const Logo = () => {
         >
           Kenneth Erasga
         </Text>
-      </LogoBox>
+      </Box>
     </Link>
   )
 }

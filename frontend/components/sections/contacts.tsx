@@ -19,6 +19,7 @@ const ContactCard = ({ href, icon: Icon, label, badge, target }: {
   <Link
     href={href}
     target={target}
+    rel={target === '_blank' ? 'noopener noreferrer' : undefined}
     display="flex"
     alignItems="center"
     gap={4}

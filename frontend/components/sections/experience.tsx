@@ -6,25 +6,11 @@ import {
   List,
   Flex,
   Badge,
-  SimpleGrid,
-  Icon
+  SimpleGrid
 } from '@chakra-ui/react'
 import { motion } from 'motion/react'
-import { FaChevronDown, FaChevronUp, FaAward, FaGraduationCap } from 'react-icons/fa'
-
-const SectionTitle = ({ children }) => (
-  <Heading
-    as="h2"
-    fontSize="xl"
-    textDecoration="underline"
-    textUnderlineOffset="6px"
-    textDecorationColor="#525252"
-    textDecorationThickness="4px"
-    mb={4}
-  >
-    {children}
-  </Heading>
-)
+import { FaChevronDown, FaAward, FaGraduationCap } from 'react-icons/fa'
+import SectionTitle from '../section-title'
 
 interface ExperienceEntryProps {
   company: string
@@ -61,7 +47,16 @@ const ExperienceEntry = ({ company, location, role, period, duration, tech, chil
         borderRadius="lg"
         transition="all 0.2s"
         cursor="pointer"
+        role="button"
+        tabIndex={0}
+        aria-expanded={expanded}
         onClick={() => setExpanded(!expanded)}
+        onKeyDown={(e: React.KeyboardEvent) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setExpanded(!expanded)
+          }
+        }}
         _hover={{ borderColor: 'grassTeal' }}
       >
         <Box>
@@ -339,14 +334,23 @@ const ExperienceSection = () => {
         left="50%"
         transform="translateX(-50%)"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ cursor: 'pointer', opacity: 0.4 }}
+        <Box
+          as="button"
+          aria-label="Scroll to contacts"
           onClick={() => scrollTo('contacts')}
+          bg="transparent"
+          border="none"
+          cursor="pointer"
+          p={0}
         >
-          <FaChevronDown size={20} />
-        </motion.div>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ opacity: 0.4 }}
+          >
+            <FaChevronDown size={20} />
+          </motion.div>
+        </Box>
       </Box>
     </Box>
   )

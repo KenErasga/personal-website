@@ -1,0 +1,16 @@
+{
+  "name": "Kenneth Erasga — Software Engineer",
+  "short_name": "Ken Erasga",
+  "description": "Full-stack Software Engineer based in Manchester, UK",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#202023",
+  "theme_color": "#88ccca",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    }
+  ]
+}

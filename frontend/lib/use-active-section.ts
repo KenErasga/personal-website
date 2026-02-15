@@ -9,10 +9,10 @@ export function useActiveSection() {
     // On initial load, scroll to hash if present
     const hash = window.location.hash.slice(1)
     if (hash) {
-      const el = document.getElementById(hash)
-      if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100)
-      }
+      requestAnimationFrame(() => {
+        const el = document.getElementById(hash)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      })
     }
 
     const observer = new IntersectionObserver(

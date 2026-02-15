@@ -7,25 +7,11 @@ import {
   Badge,
   Button
 } from '@chakra-ui/react'
-import Head from 'next/dist/shared/lib/head'
 import { motion } from 'motion/react'
 import { FaChevronDown } from 'react-icons/fa'
+import SectionTitle from '../section-title'
 
-const SectionTitle = ({ children }) => (
-  <Heading
-    as="h2"
-    fontSize="xl"
-    textDecoration="underline"
-    textUnderlineOffset="6px"
-    textDecorationColor="#525252"
-    textDecorationThickness="4px"
-    mb={4}
-  >
-    {children}
-  </Heading>
-)
-
-const TechBadge = ({ children }) => (
+const TechBadge = ({ children }: { children: React.ReactNode }) => (
   <Badge
     colorPalette="teal"
     px={2}
@@ -47,15 +33,6 @@ const scrollTo = (id: string) => {
 const HomeSection = () => {
   return (
     <Box id="home" as="section" position="relative" scrollMarginTop="200px">
-      <Head>
-        <title>Kenneth Erasga - Software Engineer</title>
-        <meta
-          name="description"
-          content="Kenneth Erasga - Full-Stack Software Engineer based in Manchester, UK"
-        />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-      </Head>
-
       <Box pt={6}>
         <Flex align="center" gap={6} mb={6} wrap="wrap">
           <Box position="relative">
@@ -74,6 +51,7 @@ const HomeSection = () => {
               alt="Kenneth Erasga"
               width={160}
               height={160}
+              sizes="160px"
               style={{ borderRadius: '50%', objectFit: 'cover', position: 'relative' }}
               priority
             />
@@ -165,14 +143,23 @@ const HomeSection = () => {
         left="50%"
         transform="translateX(-50%)"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ cursor: 'pointer', opacity: 0.4 }}
+        <Box
+          as="button"
+          aria-label="Scroll to experience"
           onClick={() => scrollTo('experience')}
+          bg="transparent"
+          border="none"
+          cursor="pointer"
+          p={0}
         >
-          <FaChevronDown size={20} />
-        </motion.div>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ opacity: 0.4 }}
+          >
+            <FaChevronDown size={20} />
+          </motion.div>
+        </Box>
       </Box>
     </Box>
   )

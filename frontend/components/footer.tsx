@@ -17,10 +17,10 @@ const Footer = () => {
             <Link href="mailto:kenneth.erasga@gmail.com" aria-label="Email">
               <FaEnvelope />
             </Link>
-            <Link href="https://www.linkedin.com/in/kenneth-erasga/" target="_blank" aria-label="LinkedIn">
+            <Link href="https://www.linkedin.com/in/kenneth-erasga/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <FaLinkedin />
             </Link>
-            <Link href="https://github.com/kenerasga" target="_blank" aria-label="GitHub">
+            <Link href="https://github.com/kenerasga" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <FaGithub />
             </Link>
           </Flex>

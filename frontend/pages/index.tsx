@@ -4,7 +4,7 @@ import HomeSection from '../components/sections/home'
 import ExperienceSection from '../components/sections/experience'
 import ContactsSection from '../components/sections/contacts'
 
-const SectionWrapper = ({ children }) => (
+const SectionWrapper = ({ children }: { children: React.ReactNode }) => (
   <Box
     minH="100vh"
     display="flex"
